@@ -1,7 +1,7 @@
 #include<iostream>
 #include<TRandom3.h>
 using namespace std;
-main ()
+int main ()
 {
   int a = 2;
   int b = 3;
