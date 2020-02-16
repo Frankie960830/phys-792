@@ -1,6 +1,6 @@
 .PHONY: all clean info install
 
-CXXFLAGS = -WALL -std++11 -02
+CXXFLAGS = -Wall -O2
 CXXFLAGS+= $(shell root-config --cflags)
 
 LIBS = $(shell root-config --libs)
