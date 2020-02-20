@@ -1,29 +1,31 @@
-.PHONY: all clean info install
+.PHONY: all clean install debug
 
-CXXFLAGS = -Wall -O2
-CXXFLAGS+= $(shell root-config --cflags)
-
-LIBS = $(shell root-config --libs)
+CXXFLAGS = $(shell root-config --cflags)
+LDLIBS = $(shell root-config --libs)
 
 SRC = $(wildcard *.cc)
-EXE= $(SRC:.cc=.exe)
+EXE= $(SRC:.cc=)
 
 all: $(EXE)
+	@echo make install: copy $(EXE) to ~/bin
+	@echo make clean: delete $(EXE)
+	@echo make debug: check contents of Makefile variables
 
-%.exe: %.cc
-	g++ $(CXXFLAGS) $(CXXFLGS+) $(LIBS) $< -o $@
 
-
-info:
-	@echo $(SRC)
-	@echo $(EXE)
+debug:
+	@echo SRC = $(SRC)
+	@echo EXE = $(EXE)
 	@echo $(CXXFLAGS)
 	@echo $(LIBS)
 
 clean:
-	rm *.exe
+	$(RM) $(EXE)
 
 install:
-	mv *.exe ~/bin
+	mkdir -p ~/bin
+	install $(EXE) ~/bin
+	@echo PLease add $(shell root-config --libdir)
+	@echo to your LD_LIBRARY_PATH before you run any executable
+
 
 
